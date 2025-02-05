@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buy Tickets - TICKETSWAP</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background-color: #000; /* Black theme */
+      color: #fff;
+      position: relative;
+      z-index: 1000; /* Ensure header is above other content */
+    }
+    header .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    header nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+    header nav ul li {
+      margin-left: 20px;
+    }
+    header nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    header nav ul li a:hover {
+      color: #ff6600; /* Orange hover effect */
+    }
+
+    /* Search Bar */
+    .search-bar {
+      text-align: center;
+      padding: 30px;
+      background-color: #444;
+      position: relative;
+      z-index: 999; /* Ensure search bar is above other content */
+    }
+    .search-bar input {
+      padding: 15px;
+      width: 500px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    .search-bar button {
+      padding: 15px 30px;
+      background-color: #ff6600;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 16px;
+      margin-left: 10px;
+    }
+    .search-bar button:hover {
+      background-color: #e65c00; /* Darker shade on hover */
+    }
+
+    /* Trending Events Section */
+    .trending-events {
+      padding: 20px 20px 0; /* Remove bottom padding to avoid interference */
+      position: relative;
+      z-index: 1; /* Ensure it's below header and search bar */
+    }
+    .trending-events h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      text-align: center; /* Center the heading */
+    }
+    .event-cards {
+      display: flex;
+      justify-content: center; /* Center the cards horizontally */
+      gap: 20px; /* Add consistent spacing between cards */
+      overflow: visible; /* Ensure no clipping of hover effects */
+      padding-bottom: 20px; /* Add padding to avoid cutting off shadows */
+    }
+    .event-card {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      min-width: 250px; /* Maintain a consistent width for all cards */
+      transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+      position: relative;
+      z-index: 1; /* Ensure cards are above other content */
+    }
+    .event-card:hover {
+      transform: scale(1.05); /* Slightly zoom in on hover */
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+    }
+    .event-card h3 {
+      margin: 0;
+      font-size: 20px;
+    }
+    .event-card p {
+      margin: 10px 0;
+      font-size: 16px;
+    }
+    .event-card .price {
+      font-weight: bold;
+      color: #ff6600;
+      font-size: 18px;
+    }
+    .event-card button {
+      padding: 12px 24px;
+      background-color: #ff6600;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+    .event-card button:hover {
+      background-color: #e65c00; /* Darker shade on hover */
+    }
+
+    /* Event Listings Section */
+    .event-listings {
+      padding: 20px;
+      position: relative;
+      z-index: 1; /* Ensure it's below header and search bar */
+    }
+    .event-listings h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .filters {
+      margin-bottom: 20px;
+    }
+    .filters select {
+      padding: 10px;
+      margin-right: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .ticket-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .ticket {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 1; /* Ensure tickets are above other content */
+    }
+    .ticket h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+    .ticket p {
+      margin: 5px 0;
+    }
+    .ticket .price {
+      font-weight: bold;
+      color: #ff6600;
+    }
+    .ticket button {
+      padding: 10px 20px;
+      background-color: #ff6600;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      cursor: pointer;
+    }
+    .ticket button:hover {
+      background-color: #e65c00; /* Darker shade on hover */
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #000; /* Black theme */
+      color: #fff;
+      position: relative;
+      z-index: 1000; /* Ensure footer is above other content */
+    }
+    footer ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    footer ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    footer ul li a:hover {
+      color: #ff6600; /* Orange hover effect */
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo">TICKETSWAP</div>
+    <nav>
+      <ul>
+        <li><a href="#">HOME</a></li>
+        <li><a href="#">SERVICES</a></li>
+        <li><a href="#">ABOUT US</a></li>
+        <li><a href="#">LOGIN</a></li>
+        <li><a href="#">SIGN UP</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <input type="text" placeholder="Search for events, artists, or locations...">
+    <button>Search</button>
+  </div>
+
+  <!-- Trending Events Section -->
+  <section class="trending-events">
+    <h2>Trending Events</h2>
+    <div class="event-cards">
+      <div class="event-card">
+        <h3>Taylor Swift</h3>
+        <p>Feb 1 | Madison Square Garden, NYC</p>
+        <p class="price">$150</p>
+        <button>Buy Now</button>
+      </div>
+      <div class="event-card">
+        <h3>Dijit Dosanjh</h3>
+        <p>Feb 5 | Staples Center, LA</p>
+        <p class="price">$120</p>
+        <button>Buy Now</button>
+      </div>
+      <div class="event-card">
+        <h3>Ed Sheeran</h3>
+        <p>Feb 10 | O2 Arena, London</p>
+        <p class="price">$180</p>
+        <button>Buy Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Event Listings Section -->
+  <section class="event-listings">
+    <h2>Available Tickets</h2>
+    <div class="filters">
+      <select>
+        <option>Date</option>
+        <option>Feb 1</option>
+        <option>Feb 5</option>
+      </select>
+      <select>
+        <option>Location</option>
+        <option>NYC</option>
+        <option>LA</option>
+      </select>
+      <select>
+        <option>Price Range</option>
+        <option>$0 - $100</option>
+        <option>$100 - $200</option>
+      </select>
+    </div>
+    <div class="ticket-list">
+      <div class="ticket">
+        <h3>Taylor Swift - The Eras Tour</h3>
+        <p>Madison Square Garden, NYC | Feb 1, 2024 | 7:00 PM</p>
+        <p class="price">$150</p>
+        <button>Buy Now</button>
+      </div>
+      <div class="ticket">
+        <h3>Dijit Dosanjh - Live in Concert</h3>
+        <p>Staples Center, LA | Feb 5, 2024 | 8:00 PM</p>
+        <p class="price">$120</p>
+        <button>Buy Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2023 TICKETSWAP. All rights reserved.</p>
+    <ul>
+      <li><a href="#">Privacy Policy</a></li>
+      <li><a href="#">Terms of Service</a></li>
+      <li><a href="#">Contact Us</a></li>
+    </ul>
+  </footer>
+</body>
+</html>
