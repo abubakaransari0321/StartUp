@@ -1,7 +1,9 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const connectDB = require("./config/db"); // MongoDB connection
 const ticketRoutes = require("./routes/ticketRoutes");
+const authRoutes = require("./routes/auth"); // Authentication routes
 
 const app = express();
 
@@ -11,8 +13,12 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// Use ticket routes
-app.use("/api", ticketRoutes);  // This will handle all routes under /api
+// Connect to MongoDB
+connectDB();
+
+// Routes
+app.use("/api/tickets", ticketRoutes); // Ticket-related routes
+app.use("/api/auth", authRoutes); // Authentication routes (signup, login, google login)
 
 // Test route
 app.get("/", (req, res) => {
@@ -22,4 +28,3 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-// jj 

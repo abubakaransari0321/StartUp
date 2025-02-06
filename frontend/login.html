@@ -131,8 +131,46 @@
             <button type="submit">Login</button>
         </form>
         <div class="register-link">
-            Don't have an account? <a href="register.html">Register</a>
+            Don't have an account? <a href="signup.html">Register</a>
         </div>
     </div>
+    <script>
+        // Select the login form element
+        const loginForm = document.querySelector('form');
+        
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Prevent default form submission
+    
+            // Get the values from the form
+            const email = document.querySelector('input[type="text"]').value;
+            const password = document.querySelector('input[type="password"]').value;
+    
+            // Send a POST request to the backend for login
+            const response = await fetch('http://localhost:5000/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }), // Send email and password
+            });
+    
+            const data = await response.json();
+    
+            if (response.ok) {
+                // Handle successful login (e.g., store token in localStorage or redirect)
+                localStorage.setItem('authToken', data.token); // Save the token in localStorage
+                alert('Login successful');
+                window.location.href = '/dashboard.html'; // Redirect to a dashboard page or homepage
+            } else {
+                // Handle login failure
+                alert(data.message); // Show error message
+            }
+        });
+    
+        // Google Sign-In function
+        function googleSignIn() {
+            alert('Google Sign-In function will be implemented here.');
+        }
+    </script>    
 </body>
 </html>

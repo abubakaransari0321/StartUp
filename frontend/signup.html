@@ -145,10 +145,10 @@
     <div class="register-container">
         <h1>Register</h1>
         <form>
-            <input type="text" placeholder="Full Name" required>
-            <input type="email" placeholder="Email Address" required>
-            <input type="password" placeholder="Password" required>
-            <input type="password" placeholder="Confirm Password" required>
+            <input type="text" id="fullName" placeholder="Full Name" required>
+            <input type="email" id="email" placeholder="Email Address" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <input type="password" id="confirmpassword" placeholder="Confirm Password" required>
             <button type="submit">Register</button>
         </form>
         <div class="google-signin">
@@ -163,9 +163,48 @@
     </div>
 
     <script>
+        // Select the sign-up form element
+        const signupForm = document.querySelector('form');
+        
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Prevent default form submission
+    
+            // Get the values from the form
+            const email = document.querySelector('input[type="email"]').value;
+            const password = document.querySelector('input[type="password"]').value;
+            const confirmPassword = document.querySelector('input[type="password"][placeholder="Confirm Password"]').value;
+    
+            // Check if the passwords match
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+            }
+    
+            // Send a POST request to the backend
+            const response = await fetch('http://localhost:5000/api/auth/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }), // Send email and password
+            });
+    
+            const data = await response.json();
+    
+            if (response.ok) {
+                // Handle successful signup (e.g., redirect to login)
+                alert(data.message); // Show success message
+                window.location.href = '/login.html'; // Redirect to login page
+            } else {
+                // Handle errors
+                alert(data.message); // Show error message
+            }
+        });
+    
+        // Google Sign-In function
         function googleSignIn() {
             alert('Google Sign-In function will be implemented here.');
         }
-    </script>
+    </script>    
 </body>
 </html>
